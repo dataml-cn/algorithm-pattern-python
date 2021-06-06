@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Introduction](README.md)
+* [简介](README.md)
 
 ## 入门篇
 
@@ -22,8 +22,8 @@
 
 ## 算法思维
 
-* [递归思维 TODO](suan-fa-si-wei/recursion.md)
-* [滑动窗口思想 TODO](suan-fa-si-wei/slide_window.md)
-* [二叉搜索树 TODO](suan-fa-si-wei/binary_search_tree.md)
-* [回溯法 TODO](suan-fa-si-wei/backtrack.md)
+* [递归思维 TODO](advanced_algorithm/recursion.md)
+* [滑动窗口思想 TODO](advanced_algorithm/slide_window.md)
+* [二叉搜索树 TODO](advanced_algorithm/binary_search_tree.md)
+* [回溯法 TODO](advanced_algorithm/backtrack.md)
 
