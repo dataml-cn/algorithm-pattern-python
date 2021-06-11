@@ -139,7 +139,6 @@ def pre_order_traversal(root: TreeNode) -> list[int]:
     return result
 
 
-// V1：深度遍历，结果指针作为参数传入到函数内部
 def dfs(root: TreeNode, result: list[int]) {
     if root is None:
         return
