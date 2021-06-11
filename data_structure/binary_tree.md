@@ -27,7 +27,7 @@ class TreeNode:
 #### 前序递归
 
 ```python
-def preorder_traversal(root: TreeNode):
+def pre_order_traversal(root: TreeNode):
     if root == null:
         return
     
@@ -41,7 +41,7 @@ def preorder_traversal(root: TreeNode):
 
 ```python
 
-def preorder_traversal(root: TreeNode) -> list[int]:
+def pre_order_traversal(root: TreeNode) -> list[int]:
 
     if not root:
         return None
@@ -72,7 +72,7 @@ def preorder_traversal(root: TreeNode) -> list[int]:
 #### 中序非递归
 
 ```python
-def inorderTraversal(root: TreeNode) -> list[int]:
+def in_order_traversal(root: TreeNode) -> list[int]:
 
     result = []
     stack = []
@@ -86,60 +86,41 @@ def inorderTraversal(root: TreeNode) -> list[int]:
             stack.append(root)
             root = root.left
         
-        while stack:
-            root = stack.pop()
-            result.append(root.val)
-            root = root.right
-
-
-
-    result := make([]int, 0)
-    if root == nil {
-        return result
-    }
-    stack := make([]*TreeNode, 0)
-    for len(stack) > 0 || root != nil {
-        for root != nil {
-            stack = append(stack, root)
-            root = root.Left // 一直向左
-        }
-        // 弹出
-        val := stack[len(stack)-1]
-        stack = stack[:len(stack)-1]
-        result = append(result, val.Val)
-        root = val.Right
-    }
+        root = stack.pop()
+        result.append(root.val)
+    
+        root = root.right
+    
     return result
 ```
 
 #### 后序非递归
 
-```go
-func postorderTraversal(root *TreeNode) []int {
-	// 通过lastVisit标识右子节点是否已经弹出
-	if root == nil {
-		return nil
-	}
-	result := make([]int, 0)
-	stack := make([]*TreeNode, 0)
-	var lastVisit *TreeNode
-	for root != nil || len(stack) != 0 {
-		for root != nil {
-			stack = append(stack, root)
-			root = root.Left
-		}
-		// 这里先看看，先不弹出
-		node:= stack[len(stack)-1]
-		// 根节点必须在右节点弹出之后，再弹出
-		if node.Right == nil || node.Right == lastVisit {
-			stack = stack[:len(stack)-1] // pop
-			result = append(result, node.Val)
-			// 标记当前这个节点已经弹出过
-			lastVisit = node
-		} else {
-			root = node.Right
-		}
-	}
+```python
+def post_order_traversal(root: TreeNode) -> list[int]: 
+
+    stack = []
+    result = []
+
+    last_visit = None
+    
+    if root is None:
+        return result
+
+    while stack or root:
+
+        while root:
+            stack.append(root)
+            root = root.left
+        
+        node = stack[-1]
+        if node.right is None or node.right == last_visit:
+            node = stack.pop()
+            result.append(root.val)
+            last_visit = node
+        else:
+            root = node.right
+
 	return result
 }
 ```
@@ -150,27 +131,22 @@ func postorderTraversal(root *TreeNode) []int {
 
 #### DFS 深度搜索-从上到下
 
-```go
-type TreeNode struct {
-    Val   int
-    Left  *TreeNode
-    Right *TreeNode
-}
+```python
 
-func preorderTraversal(root *TreeNode) []int {
-    result := make([]int, 0)
-    dfs(root, &result)
+def pre_order_traversal(root: TreeNode) -> list[int]:
+    result = []
+    dfs(root, result)
     return result
-}
+
 
 // V1：深度遍历，结果指针作为参数传入到函数内部
-func dfs(root *TreeNode, result *[]int) {
-    if root == nil {
+def dfs(root: TreeNode, result: list[int]) {
+    if root is None:
         return
-    }
-    *result = append(*result, root.Val)
-    dfs(root.Left, result)
-    dfs(root.Right, result)
+
+    result = result.append(root.Val)
+    dfs(root.left, result)
+    dfs(root.right, result)
 }
 ```
 
