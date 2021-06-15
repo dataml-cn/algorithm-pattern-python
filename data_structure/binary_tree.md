@@ -10,9 +10,7 @@
 - **中序遍历**：左子树 --> **根节点** --> 右子树
 - **后序遍历**：左子树 --> 右子树 --> **根节点**
 
-**注**
-
-- 左子树都是优先右子树
+> 左子树都是优先右子树
 
 在解释具体的遍历方式前，我们先定义树的结构
 ```python
@@ -125,9 +123,7 @@ def post_order_traversal(root: TreeNode) -> list[int]:
 }
 ```
 
-注意点
-
-- 核心就是：根节点必须在右节点弹出之后，再弹出
+> 核心：根节点必须在右节点弹出之后，再弹出
 
 #### DFS 深度搜索-从上到下
 
@@ -143,7 +139,7 @@ def dfs(root: TreeNode, result: list[int]) {
     if root is None:
         return
 
-    result = result.append(root.Val)
+    result = result.append(root.val)
     dfs(root.left, result)
     dfs(root.right, result)
 }
@@ -151,32 +147,33 @@ def dfs(root: TreeNode, result: list[int]) {
 
 #### DFS 深度搜索-从下向上（分治法）
 
-```go
-// V2：通过分治法遍历
-func preorderTraversal(root *TreeNode) []int {
-    result := divideAndConquer(root)
+```python
+def pre_order_traversal(root: TreeNode) -> list[int]:
+    result = divide_and_conquer(root)
     return result
-}
-func divideAndConquer(root *TreeNode) []int {
-    result := make([]int, 0)
-    // 返回条件(null & leaf)
-    if root == nil {
+
+
+def divide_and_conquer(root: TreeNode) -> list[int]:
+    result = []
+
+    if root is None:
         return result
-    }
-    // 分治(Divide)
-    left := divideAndConquer(root.Left)
-    right := divideAndConquer(root.Right)
-    // 合并结果(Conquer)
-    result = append(result, root.Val)
-    result = append(result, left...)
-    result = append(result, right...)
+    
+    # divide
+    left_result = divide_and_conquer(root.left)
+    right_result = divide_and_conquer(root.right)
+
+    # conquer
+    result.append(root.val)
+    result.extend(left_result)
+    result.extend(right_result)
+
     return result
-}
 ```
 
-注意点：
-
-> DFS 深度搜索（从上到下） 和分治法区别：前者一般将最终结果通过指针参数传入，后者一般递归返回结果最后合并
+> DFS 两种实现方式区别
+> - 从上到下, 一般将最终结果通过指针**参数**传入
+> - 分治法, 一般递归返回**结果最后合并**
 
 #### BFS 层次遍历
 
