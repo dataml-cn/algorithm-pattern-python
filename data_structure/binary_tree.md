@@ -198,7 +198,7 @@ def level_order(root: TreeNode) -> list[int]:
 
             if node.left:
                 queue.append(node.left)
-            if level.Right:
+            if level.right:
                 queue.append(node.right)
         
         result.extend(level_values)
@@ -222,21 +222,23 @@ def level_order(root: TreeNode) -> list[int]:
 - 分段处理
 - 合并结果
 
-```go
-func traversal(root *TreeNode) ResultType  {
-    // nil or leaf
-    if root == nil {
-        // do something and return
-    }
+```python
+def traversal(root: TreeNode) -> ResultType:
 
-    // Divide
-    ResultType left = traversal(root.Left)
-    ResultType right = traversal(root.Right)
+    if root is None:
+        # do something 
+        return result
+    else:
 
-    // Conquer
-    ResultType result = Merge from left and right
 
-    return result
+        # Divide
+        ResultType left = traversal(root.left)
+        ResultType right = traversal(root.right)
+
+        # Conquer
+        ResultType result = Merge from left and right
+        
+        return result
 }
 ```
 
