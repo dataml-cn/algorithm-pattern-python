@@ -230,39 +230,41 @@ def traversal(root: TreeNode) -> ResultType:
         return result
     else:
 
-
         # Divide
         ResultType left = traversal(root.left)
         ResultType right = traversal(root.right)
 
         # Conquer
         ResultType result = Merge from left and right
-        
+
         return result
 }
 ```
 
 #### 典型示例
 
-```go
-// V2：通过分治法遍历二叉树
-func preorderTraversal(root *TreeNode) []int {
-    result := divideAndConquer(root)
+```python
+# 通过分治法遍历二叉树
+
+def pre_order_traversal(root: TreeNode) -> list[int]: 
+    result := divide_and_conquer(root)
     return result
-}
-func divideAndConquer(root *TreeNode) []int {
-    result := make([]int, 0)
-    // 返回条件(null & leaf)
-    if root == nil {
+
+def divide_and_conquer(root: TreeNode) list[int]: 
+    result = []
+
+    if root is None:
         return result
-    }
-    // 分治(Divide)
-    left := divideAndConquer(root.Left)
-    right := divideAndConquer(root.Right)
-    // 合并结果(Conquer)
-    result = append(result, root.Val)
-    result = append(result, left...)
-    result = append(result, right...)
+
+    # Divide
+    left_result = divide_and_conquer(root.left)
+    right_result = divide_and_conquer(root.right)
+    
+    # Conquer
+    result.append(root.val)
+    result.extend(left_result)
+    result.extend(right_result)
+
     return result
 }
 ```
