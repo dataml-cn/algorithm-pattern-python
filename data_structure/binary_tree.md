@@ -271,40 +271,38 @@ def divide_and_conquer(root: TreeNode) list[int]:
 
 #### 归并排序  
 
-```go
-func MergeSort(nums []int) []int {
-    return mergeSort(nums)
-}
-func mergeSort(nums []int) []int {
-    if len(nums) <= 1 {
+```python
+def merge(nums: list[int]) -> list[int]:
+    return merge_sort(nums)
+
+def merge_sort(nums: list[int]) -> list[int]: 
+    
+    if len(nums) <= 1:
         return nums
-    }
-    // 分治法：divide 分为两段
-    mid := len(nums) / 2
-    left := mergeSort(nums[:mid])
-    right := mergeSort(nums[mid:])
-    // 合并两段数据
-    result := merge(left, right)
+    
+    # 分治法：divide 分为两段
+    mid = len(nums) / 2
+    left = merge_sort(nums[:mid])
+    right = merge_sort(nums[mid:])
+    
+    # 合并两段数据
+    result = merge_ordered_arrays(left, right)
     return result
-}
-func merge(left, right []int) (result []int) {
-    // 两边数组合并游标
-    l := 0
-    r := 0
-    // 注意不能越界
-    for l < len(left) && r < len(right) {
-        // 谁小合并谁
-        if left[l] > right[r] {
-            result = append(result, right[r])
-            r++
+
+def merge_ordered_arrays(left: list[int], right: list[int]) -> list[int]:
+
+    while left and right:
+
+        if left[0] > right[0] {
+            result.append(right.pop())
         } else {
-            result = append(result, left[l])
-            l++
+            result.append(left.pop())
         }
     }
-    // 剩余部分合并
-    result = append(result, left[l:]...)
-    result = append(result, right[r:]...)
+    
+    # 剩余部分合并
+    result.extend(left)
+    result.extend(right)
     return
 }
 ```
