@@ -281,7 +281,7 @@ def merge_sort(nums: list[int]) -> list[int]:
         return nums
     
     # 分治法：divide 分为两段
-    mid = len(nums) / 2
+    mid = len(nums) // 2
     left = merge_sort(nums[:mid])
     right = merge_sort(nums[mid:])
     
@@ -307,53 +307,56 @@ def merge_ordered_arrays(left: list[int], right: list[int]) -> list[int]:
 }
 ```
 
-注意点
-
 > 递归需要返回结果用于合并
 
 #### 快速排序  
 
-```go
-func QuickSort(nums []int) []int {
-	// 思路：把一个数组分为左右两段，左段小于右段，类似分治法没有合并过程
-	quickSort(nums, 0, len(nums)-1)
+```python
+def quick_sort(nums list[int]) -> list[int]:
+
+	# 思路：把一个数组分为左右两段，左段小于右段，类似分治法没有合并过程
+	quick_sort_detail(nums, 0, len(nums)-1)
 	return nums
 
-}
-// 原地交换，所以传入交换索引
-func quickSort(nums []int, start, end int) {
-	if start < end {
-        // 分治法：divide
-		pivot := partition(nums, start, end)
-		quickSort(nums, 0, pivot-1)
-		quickSort(nums, pivot+1, end)
-	}
-}
-// 分区
-func partition(nums []int, start, end int) int {
-	p := nums[end]
-	i := start
-	for j := start; j < end; j++ {
-		if nums[j] < p {
-			swap(nums, i, j)
-			i++
-		}
-	}
-    // 把中间的值换为用于比较的基准值
-	swap(nums, i, end)
+
+
+def quick_sort_detail(nums: list[int], start: int, end: int):
+    # 原地交换，传入开始、结束交换索引范围
+
+	if start < end:
+        # 分治法：divide
+		pivot = partition(nums, start, end)
+		quick_sort_detail(nums, 0, pivot-1)
+		quick_sort_detail(nums, pivot+1, end)
+
+def partition(nums list[int], start: int, end: int) -> int:
+	p = nums[end]
+	
+    # i: 下标小于等于 i 的部分都小于 p, 下标 i+1 对应元素大于等于 p 
+    # j: 目的是找到下一个小于 p 的元素, 交换(i+1, j)使得, 下标小于等于i+1的部分都小于p
+    
+    i = start - 1
+    for j in range(end):
+        if nums[j] < p:
+            i = i + 1
+            swap(nums, i, j)
+
+    i = i + 1
+    swap(nums, i + 1, end)
+
 	return i
-}
-func swap(nums []int, i, j int) {
-	t := nums[i]
+
+
+def swap(nums: list[int], i: int, j: int):
+	t = nums[i]
 	nums[i] = nums[j]
 	nums[j] = t
-}
-```
 
-注意点：
+```
 
 > 快排由于是原地交换所以没有合并过程
 > 传入的索引是存在的索引（如：0、length-1 等），越界可能导致崩溃
+> 核心进行partition, 分成左右两部分
 
 常见题目示例
 
