@@ -383,35 +383,35 @@ class Solution:
 #### [balanced-binary-tree](https://leetcode-cn.com/problems/balanced-binary-tree/)
 
 > 给定一个二叉树，判断它是否是高度平衡的二叉树。
+> 
+> 高度平衡的二叉树: 一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过 1 。
 
-思路：分治法，左边平衡 && 右边平衡 && 左右两边高度 <= 1，
-因为需要返回是否平衡及高度，要么返回两个数据，要么合并两个数据，
-所以用-1 表示不平衡，>0 表示树高度（二义性：一个变量有两种含义）。
+**思路**  
+分治法, 左边平衡 && 右边平衡 && 左右两边高度 <= 1  
+需要返回是否平衡及高度（二义性：一个变量有两种含义）
+- -1: 不平衡
+- \> 0: 树高度
 
-```go
-func isBalanced(root *TreeNode) bool {
-    if maxDepth(root) == -1 {
-        return false
-    }
-    return true
-}
-func maxDepth(root *TreeNode) int {
-    // check
-    if root == nil {
-        return 0
-    }
-    left := maxDepth(root.Left)
-    right := maxDepth(root.Right)
+```python
+# CPU: 48ms, 98.34%, MEMARY:18.6M, 83.51% 
+class Solution:
 
-    // 为什么返回-1呢？（变量具有二义性）
-    if left == -1 || right == -1 || left-right > 1 || right-left > 1 {
-        return -1
-    }
-    if left > right {
-        return left + 1
-    }
-    return right + 1
-}
+    def isBalanced(self, root: TreeNode) -> bool:
+        return self.max_depth(root) != -1
+
+    def max_depth(self, root: TreeNode) -> int:
+
+        if root is None:
+            return 0
+        else:
+            left = self.max_depth(root.left)
+            right = self.max_depth(root.right)
+
+        if left == -1 or right == -1 or abs(left-right) > 1:
+            return -1
+        else:
+            return left + 1 if left > right else right + 1
+
 ```
 
 注意
