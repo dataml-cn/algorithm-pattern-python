@@ -247,7 +247,7 @@ def traversal(root: TreeNode) -> ResultType:
 # 通过分治法遍历二叉树
 
 def pre_order_traversal(root: TreeNode) -> list[int]: 
-    result := divide_and_conquer(root)
+    result = divide_and_conquer(root)
     return result
 
 def divide_and_conquer(root: TreeNode) list[int]: 
