@@ -17,14 +17,14 @@
 > **[算法模板 Python 🔥](https://leetcode.dataml.cn/)** 》 **LeetCode 标签分类** 》 **剑指**
 > 
 > 1. 算法模板，里面的题目是按类型归类，都是一些常见的高频题，很有代表性，大部分都是可以用模板加一点变形做出来，刷完后对大部分题目有基本的认识。
-> ![readme_pattern_quiz](https://github.com/dataml-cn/algorithm-pattern-python/blob/master/images/readme_pattern_offer.PNG)
+> ![readme_pattern_quiz](.gitbook/assets/images/readme_pattern_quiz.png)
 > 
 > 
 > 2. 然后, 刷一遍 LeetCode 标签分类，巩固一下一些基础知识点，总结这些知识点。
-> ![readme_pattern_type](https://github.com/dataml-cn/algorithm-pattern-python/blob/master/images/readme_pattern_type.png)
+> ![readme_pattern_type](.gitbook/assets/images/readme_pattern_type.png)
 > 
 > 3. 最后, 刷一遍 LeetCode 剑指，剑指是常见题目的源头，刷完后，应付常见的题目不在话下。
-> ![readme_pattern_offer](https://github.com/dataml-cn/algorithm-pattern-python/blob/master/images/readme_pattern_offer.png)
+> ![readme_pattern_offer](.gitbook/assets/images/readme_pattern_offer.png)
 > 
 
 **问题2**  到底要刷多少题
