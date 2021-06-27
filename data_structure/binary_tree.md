@@ -423,58 +423,71 @@ class Solution:
 
 ```
 
-注意
+**注意**
 
-> 一般工程中，结果通过两个变量来返回，不建议用一个变量表示两种含义
+> 一般工程中, 不建议用一个变量表示两种含义
 
-#### binary-tree-maximum-path-sum
+#### [binary-tree-maximum-path-sum](https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/)
 
-[binary-tree-maximum-path-sum](https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/)
+> 给定一个**非空**二叉树，返回其最大路径和。  
+> 
+> **路径** 被定义为一条从树中任意节点出发，沿父节点-子节点连接，达到任意节点的序列。同一个节点在一条路径序列中至多出现一次 。该路径至少包含一个节点，且不一定经过根节点。  
+> 
+> **路径和** 是路径中各节点值的总和。
 
-> 给定一个**非空**二叉树，返回其最大路径和。
 
-思路：分治法，分为三种情况：左子树最大路径和最大，右子树最大路径和最大，左右子树最大加根节点最大，需要保存两个变量：一个保存子树最大路径和，一个保存左右加根节点和，然后比较这个两个变量选择最大值即可
+**思路**  
+分治法，分为三种情况：
 
-```go
-type ResultType struct {
-    SinglePath int // 保存单边最大值
-    MaxPath int // 保存最大值（单边或者两个单边+根的值）
-}
-func maxPathSum(root *TreeNode) int {
-    result := helper(root)
-    return result.MaxPath
-}
-func helper(root *TreeNode) ResultType {
-    // check
-    if root == nil {
-        return ResultType{
-            SinglePath: 0,
-            MaxPath: -(1 << 31),
-        }
-    }
-    // Divide
-    left := helper(root.Left)
-    right := helper(root.Right)
+1. 左子树最大路径和最大
+2. 右子树最大路径和最大
+3. 左右子树**最大贡献**加根节点最大
+   
+需要保存两个变量
+- 最大路径和：max_path
+  - 不包含, max(左、右最大路径)
+  - 包含value, max(左+右节点最大贡献, 左节点最大贡献, 右节点最大贡献, 0) + value
 
-    // Conquer
-    result := ResultType{}
-    // 求单边最大值
-    if left.SinglePath > right.SinglePath {
-        result.SinglePath = max(left.SinglePath + root.Val, 0)
-    } else {
-        result.SinglePath = max(right.SinglePath + root.Val, 0)
-    }
-    // 求两边加根最大值
-    maxPath := max(right.MaxPath, left.MaxPath)
-    result.MaxPath = max(maxPath,left.SinglePath+right.SinglePath+root.Val)
-    return result
-}
-func max(a,b int) int {
-    if a > b {
-        return a
-    }
-    return b
-}
+- 当前节点对父节点最大贡献: max_gain
+  - 不包含, 0
+  - 包含节点, max(左、右节点最大贡献, 0) + value
+
+- 当节点为空时
+  - 最大路径应该, **很小的负数**, 不然上层节点值为负时, 最大路径可能选择错误
+
+
+然后比较这个两个变量选择最大值即可
+
+```python
+# CPU: 100ms, 54.72%, MEMARY:21.6M, 91.23% 
+
+class Solution:
+    def maxPathSum(self, root: TreeNode) -> int:
+
+        return self.divide(root)[0]
+
+
+    def divide(self, root: TreeNode) -> tuple:
+
+        # return: max_path, max_gain
+        # max_path: 当前子树下的最大路径和
+        #           最大路径: 不包含当前节点, 左右子树中的最大路径; 或者包含当前节点, 左右子树有可能贡献
+        #           max_path = max(righ_max_path, left_max_path, max(right_gain, left_gain, right_gain + left_gain, 0) + value)
+        # max_gain: 当前节点, 作为子节点可以提供的贡献
+        #           当前节点的贡献:自身+左右其中之一, 或者贡献为0 
+        #           max_gain = max(max(right_gain, left_gain, 0) + value, 0)
+
+        if root is None: 
+            return -(1 << 31), 0
+        else:
+
+            left_max_path, left_max_gain = self.divide(root.left)
+            right_max_path, right_max_gain = self.divide(root.right)
+
+            max_gain = max(max(left_max_gain, right_max_gain, 0) + root.val, 0)
+            max_path = max(max(left_max_path, right_max_path), max(left_max_gain, right_max_gain, left_max_gain + right_max_gain, 0) + root.val)
+
+            return max_path, max_gain
 ```
 
 #### lowest-common-ancestor-of-a-binary-tree
