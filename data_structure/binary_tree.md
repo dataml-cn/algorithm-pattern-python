@@ -506,13 +506,15 @@ class Solution:
 
 1. root 为空, 此时公共祖先不存在
 2. root 不为空, p, q 一定在为子树
-   - p 或 q == root, 则其最近公共祖先为root
+   - p 或 q == root, 则其最近公共祖先为必须包含root, 有可能p或q不在root下
    - p, q均不等于root 
      - 分治 
        - common_left = divide(root.left, p, q)
        - common_right = divide(root.right, p, q)
      - 合并
-       - <font color='red'> common_left, common_right 都不为空, 说明一个分支里仅包含p或q?</font>
+       - <font color='red'> common_left, common_right 都不为空</font>, 返回root
+         - 一个分支==p
+         - 另一个分支==q
        - common_left, common_right 有一个不为空, 则说明p, q在其内部, 直接作为最终结果
 
 - 有左子树的公共祖先或者有右子树的公共祖先，就返回子树的祖先，否则返回根节点
