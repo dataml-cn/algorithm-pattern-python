@@ -490,42 +490,51 @@ class Solution:
             return max_path, max_gain
 ```
 
-#### lowest-common-ancestor-of-a-binary-tree
-
-[lowest-common-ancestor-of-a-binary-tree](https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/)
+#### [lowest-common-ancestor-of-a-binary-tree](https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/)
 
 > 给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。
+>
+> **最近**公共祖先, 对于有根树 T 的两个节点 p、q，最近公共祖先表示为一个节点 x，满足
+> - x 是 p、q 的**祖先**
+> - 且 x 的**深度尽可能大**
+>
+> 注, 一个节点也可以是它自己的祖先
 
-思路：分治法，有左子树的公共祖先或者有右子树的公共祖先，就返回子树的祖先，否则返回根节点
+**思路**
 
-```go
-func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
-    // check
-    if root == nil {
-        return root
-    }
-    // 相等 直接返回root节点即可
-    if root == p || root == q {
-        return root
-    }
-    // Divide
-    left := lowestCommonAncestor(root.Left, p, q)
-    right := lowestCommonAncestor(root.Right, p, q)
+分治法
 
+1. root 为空, 此时公共祖先不存在
+2. root 不为空, p, q 一定在为子树
+   - p 或 q == root, 则其最近公共祖先为root
+   - p, q均不等于root 
+     - 分治 
+       - common_left = divide(root.left, p, q)
+       - common_right = divide(root.right, p, q)
+     - 合并
+       - <font color='red'> common_left, common_right 都不为空, 说明一个分支里仅包含p或q?</font>
+       - common_left, common_right 有一个不为空, 则说明p, q在其内部, 直接作为最终结果
 
-    // Conquer
-    // 左右两边都不为空，则根节点为祖先
-    if left != nil && right != nil {
-        return root
-    }
-    if left != nil {
-        return left
-    }
-    if right != nil {
-        return right
-    }
-    return nil
-}
+- 有左子树的公共祖先或者有右子树的公共祖先，就返回子树的祖先，否则返回根节点
+
+```python
+# CPU: 80ms, 69%, MEMARY:25.7M, 34% 
+
+class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+
+        if root == None:
+            return root
+        elif root in (p, q):
+            return root
+        else:
+            ancestor_left = self.lowestCommonAncestor(root.left, p, q)
+            ancestor_right = self.lowestCommonAncestor(root.right, p, q)
+
+            if ancestor_left and ancestor_right:
+                return root
+            else:
+                return ancestor_left or ancestor_right
 ```
 
 ### BFS 层次应用
