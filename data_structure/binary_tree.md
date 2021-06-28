@@ -512,7 +512,7 @@ class Solution:
        - common_left = divide(root.left, p, q)
        - common_right = divide(root.right, p, q)
      - 合并
-       - <font color='red'> common_left, common_right 都不为空</font>, 返回root
+       - <font color='red'> **common_left, common_right 都不为空**</font>, 返回root
          - 一个分支==p
          - 另一个分支==q
        - common_left, common_right 有一个不为空, 则说明p, q在其内部, 直接作为最终结果
