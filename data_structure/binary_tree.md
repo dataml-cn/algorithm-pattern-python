@@ -13,6 +13,7 @@
 > 左子树都是优先右子树
 
 在解释具体的遍历方式前，我们先定义树的结构
+
 ```python
 class TreeNode:
     def __init__(self, val, left: TreeNode, right: TreeNode):
@@ -20,7 +21,6 @@ class TreeNode:
         self.left = left
         self.right = right
 ```
-
 
 #### 前序递归
 
@@ -38,7 +38,6 @@ def pre_order_traversal(root: TreeNode):
 #### 前序非递归
 
 ```python
-
 def pre_order_traversal(root: TreeNode) -> list[int]:
 
     if not root:
@@ -119,7 +118,7 @@ def post_order_traversal(root: TreeNode) -> list[int]:
         else:
             root = node.right
 
-	return result
+    return result
 }
 ```
 
@@ -172,6 +171,7 @@ def divide_and_conquer(root: TreeNode) -> list[int]:
 ```
 
 > DFS 两种实现方式区别
+>
 > - 从上到下, 一般将最终结果通过指针**参数**传入
 > - 分治法, 一般递归返回**结果最后合并**
 
@@ -314,24 +314,24 @@ def merge_ordered_arrays(left: list[int], right: list[int]) -> list[int]:
 ```python
 def quick_sort(nums list[int]) -> list[int]:
 
-	# 思路：把一个数组分为左右两段，左段小于右段，类似分治法没有合并过程
-	quick_sort_detail(nums, 0, len(nums)-1)
-	return nums
+    # 思路：把一个数组分为左右两段，左段小于右段，类似分治法没有合并过程
+    quick_sort_detail(nums, 0, len(nums)-1)
+    return nums
 
 
 
 def quick_sort_detail(nums: list[int], start: int, end: int):
     # 原地交换，传入开始、结束交换索引范围
 
-	if start < end:
+    if start < end:
         # 分治法：divide
-		pivot = partition(nums, start, end)
-		quick_sort_detail(nums, 0, pivot-1)
-		quick_sort_detail(nums, pivot+1, end)
+        pivot = partition(nums, start, end)
+        quick_sort_detail(nums, 0, pivot-1)
+        quick_sort_detail(nums, pivot+1, end)
 
 def partition(nums list[int], start: int, end: int) -> int:
-	p = nums[end]
-	
+    p = nums[end]
+
     # i: 下标小于等于 i 的部分都小于 p, 下标 i+1 对应元素大于等于 p 
     # j: 目的是找到下一个小于 p 的元素, 交换(i+1, j)使得, 下标小于等于i+1的部分都小于p
     
@@ -344,13 +344,13 @@ def partition(nums list[int], start: int, end: int) -> int:
     i = i + 1
     swap(nums, i + 1, end)
 
-	return i
+    return i
 
 
 def swap(nums: list[int], i: int, j: int):
-	t = nums[i]
-	nums[i] = nums[j]
-	nums[j] = t
+    t = nums[i]
+    nums[i] = nums[j]
+    nums[j] = t
 
 ```
 
@@ -388,7 +388,7 @@ class Solution:
 #### [balanced-binary-tree](https://leetcode-cn.com/problems/balanced-binary-tree/)
 
 > 给定一个二叉树，判断它是否是高度平衡的二叉树。
-> 
+>
 > 高度平衡的二叉树: 一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过 1 。
 
 **思路**  
@@ -430,11 +430,10 @@ class Solution:
 #### [binary-tree-maximum-path-sum](https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/)
 
 > 给定一个**非空**二叉树，返回其最大路径和。  
-> 
+>
 > **路径** 被定义为一条从树中任意节点出发，沿父节点-子节点连接，达到任意节点的序列。同一个节点在一条路径序列中至多出现一次 。该路径至少包含一个节点，且不一定经过根节点。  
-> 
+>
 > **路径和** 是路径中各节点值的总和。
-
 
 **思路**  
 分治法，分为三种情况：
@@ -442,8 +441,9 @@ class Solution:
 1. 左子树最大路径和最大
 2. 右子树最大路径和最大
 3. 左右子树**最大贡献**加根节点最大
-   
+
 需要保存两个变量
+
 - 最大路径和：max_path
   - 不包含, max(左、右最大路径)
   - 包含value, max(左+右节点最大贡献, 左节点最大贡献, 右节点最大贡献, 0) + value
@@ -454,7 +454,6 @@ class Solution:
 
 - 当节点为空时
   - 最大路径应该, **很小的负数**, 不然上层节点值为负时, 最大路径可能选择错误
-
 
 然后比较这个两个变量选择最大值即可
 
@@ -495,6 +494,7 @@ class Solution:
 > 给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。
 >
 > **最近**公共祖先, 对于有根树 T 的两个节点 p、q，最近公共祖先表示为一个节点 x，满足
+>
 > - x 是 p、q 的**祖先**
 > - 且 x 的**深度尽可能大**
 >
@@ -507,8 +507,8 @@ class Solution:
 1. root 为空, 此时公共祖先不存在
 2. root 不为空, p, q 一定在为子树
    - p 或 q == root, 则其最近公共祖先为必须包含root, 有可能p或q不在root下
-   - p, q均不等于root 
-     - 分治 
+   - p, q均不等于root
+     - 分治
        - common_left = divide(root.left, p, q)
        - common_right = divide(root.right, p, q)
      - 合并
